@@ -14,6 +14,20 @@ one chatting robot can broadcasting music and reply automatically
   p.s. when u choose to play background music, the sound noticing won't appear, u have to stop the music, but not pause, the sound will work normally again.
 #### image.
   1. on the right column, there is a picture to decorate the window. 
+  
+## how to use
+1. run main.py to start the chatting window
+2. choose a specific style robot u want to chat with on the left column.
+3. on the bottom, u can choose to start, pause, stop the background music.
+4. then, u can type sentence in the bottom subwindow, press button "发送" or hot-key <L_control> to send the message
+5. once u send the message, the top left sub_window will show your message record, while the top right subwindow will show the robot's reply
+
+## evironment
+win10, python3.6.3
+## package support
+1. tkinter
+2. pygame
+3. PIL
 
 ## work not to do
   1. more intelligent reply. Because there just time random, which is not really smart. u can improve it by deep learning.
