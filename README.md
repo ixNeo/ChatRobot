@@ -22,7 +22,7 @@ one chatting robot can broadcasting music and reply automatically
 4. then, u can type sentence in the bottom subwindow, press button "发送" or hot-key <L_control> to send the message
 5. once u send the message, the top left sub_window will show your message record, while the top right subwindow will show the robot's reply
 
-## evironment
+## environment
 win10, python3.6.3
 ## package support
 1. tkinter
