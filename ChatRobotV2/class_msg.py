@@ -2,7 +2,10 @@ from tkinter import *
 from tkinter import scrolledtext
 import time
 import random
-
+import requests
+import hashlib
+import time
+import json
 from class_music import *
 from class_data import *
 
@@ -10,9 +13,22 @@ class Msg:
 
   def __init__(self,frame):
 
-    self.int_msg = scrolledtext.ScrolledText(frame.fra_int,width=32,height=22)
-    self.msg = scrolledtext.ScrolledText(frame.fra_msg,width=68,height=7)
-    self.auto_msg = scrolledtext.ScrolledText(frame.fra_auto,width=32,height=22) 
+    self.kind = ""
+    self.msg_for_url = ""
+    self.int_msg = scrolledtext.ScrolledText(frame.fra_int,width=32,height=22,background="#c9daf8")
+    self.int_msg.tag_configure('beg', foreground='#1c4587', 
+                        font=('幼圆', 12,'bold'))
+    self.int_msg.tag_configure('color', foreground='#3c78d8', 
+                        font=('仿宋', 12,'bold'))
+    self.msg = scrolledtext.ScrolledText(frame.fra_msg,width=68,height=7,background="#e9e9e9")
+    self.msg.tag_add('tag1', 1.0,8.0)
+    self.msg.tag_configure('tag1',foreground='#1c4587',
+                        font=('微软雅黑',12))
+    self.auto_msg = scrolledtext.ScrolledText(frame.fra_auto,width=32,height=22,background="#dfd9ed") 
+    self.auto_msg.tag_configure('automsg', foreground='#783f04', 
+                        font=('微软雅黑', 12))
+    self.auto_msg.tag_configure('begin', foreground='#e69138', 
+                        font=('楷体', 12, 'bold'))
     self.msg.tag_config('tag_msg',font="宋体")
     self.pos_reply = Data().get_data()
 
@@ -28,12 +44,60 @@ class Msg:
 
   # 自动回复，设随机数，规定回复的格式细节
   def auto_reply(self):
-
-    while self.i==self.j:
-      self.i = random.randint(0, len(self.pos_reply))
-    self.j = self.i
-    fin_msg = self.reply_name+": "+ self.pos_reply[self.i]+'\n'
-    self.auto_msg.insert(END, fin_msg)
+    if self.kind == 'bolt':
+      key = "86a516ab67a64ed29f28bb683e77e1f8"      
+      url = "http://www.tuling123.com/openapi/api?key=" + key + "&info=" + self.msg_for_url
+      html = requests.get(url)
+      fin_msg = html.json()['text']+'\n'
+    elif self.kind == '汉译英':
+      appKey = '397d5478d0f3fa46'
+      secretKey = 'H3c6MnnBgL4Itq0uR5ajz6Muca4XxJIO'
+      q = self.msg_for_url
+      salt = str(time.time())[:10]
+      sign = appKey+q+salt+secretKey
+      sign = hashlib.md5(sign.encode("utf-8")).hexdigest()
+      url = "http://openapi.youdao.com/api"
+      params = {
+                  'q':q.encode('utf-8'),
+                  'from':'zh',
+                  'to':'en',
+                  'appKey':appKey,
+                  'salt': salt,
+                  'sign':sign
+                  }
+      html = requests.get(url,params=params)
+      html.encoding = html.apparent_encoding
+      html = html.text
+      res = json.loads(html)
+      fin_msg = res['translation'][0]+'\n'
+    elif self.kind == '英译汉':
+      appKey = '397d5478d0f3fa46'
+      secretKey = 'H3c6MnnBgL4Itq0uR5ajz6Muca4XxJIO'
+      q = self.msg_for_url
+      salt = str(time.time())[:10]
+      sign = appKey+q+salt+secretKey
+      sign = hashlib.md5(sign.encode("utf-8")).hexdigest()
+      url = "http://openapi.youdao.com/api"
+      params = {
+                  'q':q.encode('utf-8'),
+                  'from':'en',
+                  'to':'zh',
+                  'appKey':appKey,
+                  'salt': salt,
+                  'sign':sign
+                  }
+      html = requests.get(url,params=params)
+      html.encoding = html.apparent_encoding
+      html = html.text
+      res = json.loads(html)
+      fin_msg = res['translation'][0]+'\n'
+    else:
+      while self.i==self.j:
+        self.i = random.randint(0, len(self.pos_reply))
+      self.j = self.i
+      fin_msg = self.pos_reply[self.i]+'\n'
+    self.auto_msg.insert(END, self.reply_name+": ", 'begin')
+    self.auto_msg.insert(END, fin_msg, 'automsg')
 
 
   # 按下发送按钮之后的操作，实现消息上传以及智能回复
@@ -44,11 +108,13 @@ class Msg:
 
     intro = u"少爷:"
     raw_sen = self.msg.get('0.0',END)
+    self.msg_for_url = raw_sen
     # 实现自学习，得到用户的语句，之后进行分析，做出回答
     # with open("D:\\text\\result.txt",'a') as f:
     #     f.write(raw_sen)
-    self.int_msg.insert(END, intro)
-    self.int_msg.insert(END, self.msg.get('0.0',END)+'\n')
+    self.int_msg.insert(END, intro,'color')
+    self.int_msg.insert(END, self.msg.get('0.0',END)+'\n','beg')
+    # print(self.int_msg.get('1.0','end-1c'))
     self.msg.delete('0.0',END)
     self.auto_reply()
     self.int_msg.see(END)
@@ -93,6 +159,7 @@ class Msg:
       self.i = random.randint(0, len(self.pos_reply))
       self.j = 0
       self.reply_name=u"皮皮熊"
+      self.kind = 'person'
 
     def cnt2(self):
       cntor = Data("./text/jingda_duzou.txt")
@@ -100,6 +167,7 @@ class Msg:
       self.i = random.randint(0, len(self.pos_reply))
       self.j = 0
       self.reply_name=u"社会阿达"
+      self.kind = 'person'
 
     def cnt3(self):
       cntor = Data("./text/xiaochen_duzou.txt")
@@ -107,6 +175,7 @@ class Msg:
       self.i = random.randint(0, len(self.pos_reply))
       self.j = 0
       self.reply_name=u"大姐大"
+      self.kind = 'person'
 
     def cnt4(self):
       cntor = Data("./text/yutian_duzou.txt")
@@ -114,6 +183,7 @@ class Msg:
       self.i = random.randint(0, len(self.pos_reply))
       self.j = 0
       self.reply_name=u"小蠢货"
+      self.kind = 'person'
 
     def cnt5(self):
       cntor = Data("./text/haodong_duzou.txt")
@@ -121,6 +191,7 @@ class Msg:
       self.i = random.randint(0, len(self.pos_reply))
       self.j = 0
       self.reply_name=u"秃顶大叔"
+      self.kind = 'person'
 
     def cnt6(self):
       cntor = Data("./text/poem.txt")
@@ -128,23 +199,48 @@ class Msg:
       self.i = random.randint(0, len(self.pos_reply))
       self.j = 0
       self.reply_name=u"明楼"
+      self.kind = 'person'
 
     def cnt7(self):
       cntor = Data("./text/result.txt")
       self.pos_reply = cntor.get_data()
       self.i = random.randint(0, len(self.pos_reply))
       self.j = 0
-      self.reply_name==u"心灵捕手"
+      self.reply_name=u"心灵捕手"
+      self.kind = 'person'
+
+    def cnt8(self):
+      self.kind = "bolt"
+      self.reply_name="Alice"
+
+    def cnt9(self):
+      self.kind = "汉译英"
+      self.reply_name="translater"
+
+    def cnt10(self):
+      self.kind = "英译汉"
+      self.reply_name="translater"
+
+    def cnt11(self):
+      cntor = Data("./text/db_movie.txt")
+      self.pos_reply = cntor.get_data()
+      self.i = random.randint(0, len(self.pos_reply))
+      self.j = 0
+      self.reply_name=u"电影推荐"
+      self.kind = 'movie'
 
     # image=ImageTk.PhotoImage(Image.open("D:\\python_play\\chatbolt\\image\\cool.jpg"))
-    self.but_cnt1 = Button(frame.fra_cnt,text=u"皮皮熊",width=20,command=lambda:cnt1(self))
-    self.but_cnt2 = Button(frame.fra_cnt,text=u"社会阿达",width=20,command=lambda:cnt2(self))
-    self.but_cnt3 = Button(frame.fra_cnt,text=u"大姐大",width=20,command=lambda:cnt3(self))
-    self.but_cnt4 = Button(frame.fra_cnt,text=u"小蠢货",width=20,command=lambda:cnt4(self))
-    self.but_cnt5 = Button(frame.fra_cnt,text=u"秃顶大叔",width=20,command=lambda:cnt5(self))
-    self.but_cnt6 = Button(frame.fra_cnt,text=u"明楼",width=20,command=lambda:cnt6(self))
-    self.but_cnt7 = Button(frame.fra_cnt,text=u"心灵捕手",width=20,command=lambda:cnt7(self))
-
+    self.but_cnt1 = Button(frame.fra_cnt,text=u"皮皮熊",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt1(self))
+    self.but_cnt2 = Button(frame.fra_cnt,text=u"社会阿达",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt2(self))
+    self.but_cnt3 = Button(frame.fra_cnt,text=u"大姐大",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt3(self))
+    self.but_cnt4 = Button(frame.fra_cnt,text=u"小蠢货",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt4(self))
+    self.but_cnt5 = Button(frame.fra_cnt,text=u"秃顶大叔",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt5(self))
+    self.but_cnt6 = Button(frame.fra_cnt,text=u"明楼",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt6(self))
+    self.but_cnt7 = Button(frame.fra_cnt,text=u"心灵捕手",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt7(self))
+    self.but_cnt8 = Button(frame.fra_cnt,text=u"Alice",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt8(self))
+    self.but_cnt9 = Button(frame.fra_cnt,text=u"汉译英",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt9(self))
+    self.but_cnt10 = Button(frame.fra_cnt,text=u"英译汉",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt10(self))
+    self.but_cnt11 = Button(frame.fra_cnt,text=u"电影推荐",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt11(self))
 
   def crt_grid(self):
 
@@ -163,3 +259,7 @@ class Msg:
     self.but_cnt5.pack()
     self.but_cnt6.pack()
     self.but_cnt7.pack()
+    self.but_cnt8.pack()
+    self.but_cnt9.pack()
+    self.but_cnt10.pack()
+    self.but_cnt11.pack()
