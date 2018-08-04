@@ -106,7 +106,7 @@ class Msg:
     if Music.switch_on:
       self.send_music.msg_sound()
 
-    intro = u"少爷:"
+    intro = u">:"
     raw_sen = self.msg.get('0.0',END)
     self.msg_for_url = raw_sen
     # 实现自学习，得到用户的语句，之后进行分析，做出回答

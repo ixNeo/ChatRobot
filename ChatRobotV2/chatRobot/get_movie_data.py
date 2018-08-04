@@ -5,17 +5,10 @@ def get_html(url):
 	r = requests.get(url)
 	r.encoding = r.apparent_encoding
 	return r
-
-
 def make_soup(html,n):
 
 	movies = []
 	s = "{0:{3}^5}{1:{3}^5}{2:{3}^5}"
-
-	# if not n:
-	# 	with open("D:\\python_play\\pythonNet\\db_movie.txt",'w',encoding='utf-8') as f:
-	# 		f.write(s.format("电影名称","评分","短评",chr(12288),"序号")+'\n')
-
 	soup = BeautifulSoup(html.text,'html.parser')
 	orign = soup.find('ol',class_="grid_view")
 	a = orign.find_all('li')
@@ -43,14 +36,12 @@ def make_soup(html,n):
 		for i in movies:
 			# print(i)
 			f.write(s.format(i[0],i[1],i[2],chr(12288))+'\n')
-			
-
+		
 def main():
 
 	for i in range(0,10):
 		url = "https://movie.douban.com/top250"+"?start="+str(25*i)
 		html = get_html(url)
 		make_soup(html,25*i)
-
 
 main()
