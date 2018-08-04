@@ -1,3 +1,11 @@
+# 中文注解
+1. 用python3实现的多功能机器人，可以实现中英互译、电影推荐、个性化机器人陪聊、音乐播放、头像展示等功能
+    1. 翻译功能：调用网易翻译的API
+    2. 机器人Alice陪聊：调用图灵机器人API
+    3. 电影推荐：爬取豆瓣TOP250数据
+    4. 其余联系人：爬取个人QQ消息记录或者电影台词，随机生成
+
+
 # ChatRobot
 ## introduce
 one chatting robot can broadcasting music and reply automatically
@@ -33,3 +41,5 @@ win10, python3.6.3
   1. more intelligent reply. Because there just time random, which is not really smart. u can improve it by deep learning.
   2. more songs support. u can add functions like "next songs"
   3. more images. u can add the button to change the picture.
+  
+
