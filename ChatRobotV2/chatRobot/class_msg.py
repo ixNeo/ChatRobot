@@ -153,52 +153,52 @@ class Msg:
     self.msg.bind('<Control_L>',sendmsg_event)
 
     # 联系人按钮
-    def cnt1(self):
-      cntor = Data("./text/xiongchuyuan.txt")
-      self.pos_reply = cntor.get_data()
-      self.i = random.randint(0, len(self.pos_reply))
-      self.j = 0
-      self.reply_name=u"皮皮熊"
-      self.kind = 'person'
+    # def cnt1(self):
+    #   cntor = Data("./text/xiongchuyuan.txt")
+    #   self.pos_reply = cntor.get_data()
+    #   self.i = random.randint(0, len(self.pos_reply))
+    #   self.j = 0
+    #   self.reply_name=u"皮皮熊"
+    #   self.kind = 'person'
 
-    def cnt2(self):
-      cntor = Data("./text/jingda_duzou.txt")
-      self.pos_reply = cntor.get_data()
-      self.i = random.randint(0, len(self.pos_reply))
-      self.j = 0
-      self.reply_name=u"社会阿达"
-      self.kind = 'person'
+    # def cnt2(self):
+    #   cntor = Data("./text/jingda_duzou.txt")
+    #   self.pos_reply = cntor.get_data()
+    #   self.i = random.randint(0, len(self.pos_reply))
+    #   self.j = 0
+    #   self.reply_name=u"社会阿达"
+    #   self.kind = 'person'
 
-    def cnt3(self):
-      cntor = Data("./text/xiaochen_duzou.txt")
-      self.pos_reply = cntor.get_data()
-      self.i = random.randint(0, len(self.pos_reply))
-      self.j = 0
-      self.reply_name=u"大姐大"
-      self.kind = 'person'
+    # def cnt3(self):
+    #   cntor = Data("./text/xiaochen_duzou.txt")
+    #   self.pos_reply = cntor.get_data()
+    #   self.i = random.randint(0, len(self.pos_reply))
+    #   self.j = 0
+    #   self.reply_name=u"大姐大"
+    #   self.kind = 'person'
 
-    def cnt4(self):
-      cntor = Data("./text/yutian_duzou.txt")
-      self.pos_reply = cntor.get_data()
-      self.i = random.randint(0, len(self.pos_reply))
-      self.j = 0
-      self.reply_name=u"小蠢货"
-      self.kind = 'person'
+    # def cnt4(self):
+    #   cntor = Data("./text/yutian_duzou.txt")
+    #   self.pos_reply = cntor.get_data()
+    #   self.i = random.randint(0, len(self.pos_reply))
+    #   self.j = 0
+    #   self.reply_name=u"小蠢货"
+    #   self.kind = 'person'
 
-    def cnt5(self):
-      cntor = Data("./text/haodong_duzou.txt")
-      self.pos_reply = cntor.get_data()
-      self.i = random.randint(0, len(self.pos_reply))
-      self.j = 0
-      self.reply_name=u"秃顶大叔"
-      self.kind = 'person'
+    # def cnt5(self):
+    #   cntor = Data("./text/haodong_duzou.txt")
+    #   self.pos_reply = cntor.get_data()
+    #   self.i = random.randint(0, len(self.pos_reply))
+    #   self.j = 0
+    #   self.reply_name=u"秃顶大叔"
+    #   self.kind = 'person'
 
     def cnt6(self):
       cntor = Data("./text/poem.txt")
       self.pos_reply = cntor.get_data()
       self.i = random.randint(0, len(self.pos_reply))
       self.j = 0
-      self.reply_name=u"明楼"
+      self.reply_name=u"大诗人"
       self.kind = 'person'
 
     def cnt7(self):
@@ -206,12 +206,12 @@ class Msg:
       self.pos_reply = cntor.get_data()
       self.i = random.randint(0, len(self.pos_reply))
       self.j = 0
-      self.reply_name=u"心灵捕手"
+      self.reply_name=u"台词控"
       self.kind = 'person'
 
     def cnt8(self):
       self.kind = "bolt"
-      self.reply_name="Alice"
+      self.reply_name="机器人Alice"
 
     def cnt9(self):
       self.kind = "汉译英"
@@ -230,14 +230,14 @@ class Msg:
       self.kind = 'movie'
 
     # image=ImageTk.PhotoImage(Image.open("D:\\python_play\\chatbolt\\image\\cool.jpg"))
-    self.but_cnt1 = Button(frame.fra_cnt,text=u"皮皮熊",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt1(self))
-    self.but_cnt2 = Button(frame.fra_cnt,text=u"社会阿达",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt2(self))
-    self.but_cnt3 = Button(frame.fra_cnt,text=u"大姐大",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt3(self))
-    self.but_cnt4 = Button(frame.fra_cnt,text=u"小蠢货",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt4(self))
-    self.but_cnt5 = Button(frame.fra_cnt,text=u"秃顶大叔",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt5(self))
-    self.but_cnt6 = Button(frame.fra_cnt,text=u"明楼",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt6(self))
-    self.but_cnt7 = Button(frame.fra_cnt,text=u"心灵捕手",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt7(self))
-    self.but_cnt8 = Button(frame.fra_cnt,text=u"Alice",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt8(self))
+    # self.but_cnt1 = Button(frame.fra_cnt,text=u"皮皮熊",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt1(self))
+    # self.but_cnt2 = Button(frame.fra_cnt,text=u"社会阿达",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt2(self))
+    # self.but_cnt3 = Button(frame.fra_cnt,text=u"大姐大",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt3(self))
+    # self.but_cnt4 = Button(frame.fra_cnt,text=u"小蠢货",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt4(self))
+    # self.but_cnt5 = Button(frame.fra_cnt,text=u"秃顶大叔",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt5(self))
+    self.but_cnt6 = Button(frame.fra_cnt,text=u"大诗人",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt6(self))
+    self.but_cnt7 = Button(frame.fra_cnt,text=u"台词控",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt7(self))
+    self.but_cnt8 = Button(frame.fra_cnt,text=u"机器人Alice",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt8(self))
     self.but_cnt9 = Button(frame.fra_cnt,text=u"汉译英",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt9(self))
     self.but_cnt10 = Button(frame.fra_cnt,text=u"英译汉",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt10(self))
     self.but_cnt11 = Button(frame.fra_cnt,text=u"电影推荐",font=('幼圆',12,'bold'),fg='#6600cc',bg='#ccffcc',width=20,command=lambda:cnt11(self))
@@ -252,12 +252,12 @@ class Msg:
     self.but_bgMusic_pause.pack(side="left")
     self.but_bgMusic_stop.pack(side="left")
 
-    self.but_cnt1.pack(side="top")
-    self.but_cnt2.pack()
-    self.but_cnt3.pack()
-    self.but_cnt4.pack()
-    self.but_cnt5.pack()
-    self.but_cnt6.pack()
+    # self.but_cnt1.pack(side="top")
+    # self.but_cnt2.pack()
+    # self.but_cnt3.pack()
+    # self.but_cnt4.pack()
+    # self.but_cnt5.pack()
+    self.but_cnt6.pack("top")
     self.but_cnt7.pack()
     self.but_cnt8.pack()
     self.but_cnt9.pack()
