@@ -18,7 +18,7 @@ def main():
   # 两个主要类：UI和Msg ; 两个工具类：Data和Music
   root = Tk()
   root.title("chatterbot")
-  root.iconbitmap("./image/cat32.ico")
+  # root.iconbitmap('image/cat32.ico')
 
   ui_win = UI()
   ui_win.crt_grid()
@@ -28,7 +28,7 @@ def main():
   msg_win.crt_grid()
 
   # 图片变量的作用域必须与mainloop相同，因为没有设置全局变量，所以一并写在主函数中
-  pic = PIL.Image.open("./image/foxgirl.jpg")
+  pic = PIL.Image.open("image/foxgirl.jpg")
   m1 = ImageTk.PhotoImage(pic)
   label1 = Label(ui_win.fra_img,compound="top",image=m1)
   label1.pack()

@@ -24,10 +24,14 @@ class UI:
     self.fra_sen.grid(row=5,column=0,columnspan=3,padx=2,pady=6)
     self.fra_but.grid(row=5,column=3)
 
-    self.fra_cnt.grid_propagate(0)
-    self.fra_int.grid_propagate(0)
-    self.fra_auto.grid_propagate(0)
-    self.fra_msg.grid_propagate(0)
-    self.fra_img.grid_propagate(0)
-    self.fra_sen.grid_propagate(0)
-    self.fra_but.grid_propagate(0)
+    # replace below calls
+    for k, v in vars(self).items():
+      eval('self.'+k).grid_propagate(0)
+      
+    # self.fra_cnt.grid_propagate(0)
+    # self.fra_int.grid_propagate(0)
+    # self.fra_auto.grid_propagate(0)
+    # self.fra_msg.grid_propagate(0)
+    # self.fra_img.grid_propagate(0)
+    # self.fra_sen.grid_propagate(0)
+    # self.fra_but.grid_propagate(0)
