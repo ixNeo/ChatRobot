@@ -6,25 +6,23 @@ import PIL.Image
 import pygame
 import time
 import random
-
-
 from class_msg import *
 from class_ui import *
-from class_music import *
-from class_data import *
+
 
 def main():
-
   # 两个主要类：UI和Msg ; 两个工具类：Data和Music
   root = Tk()
   root.title("chatterbot")
   # root.iconbitmap('image/cat32.ico')
-
   ui_win = UI()
   ui_win.crt_grid()
-
   msg_win = Msg(ui_win)
+  # create connectors
+  msg_win.create_conns()
+  # create buttons
   msg_win.crt_but(ui_win)
+  # make grids
   msg_win.crt_grid()
 
   # 图片变量的作用域必须与mainloop相同，因为没有设置全局变量，所以一并写在主函数中
@@ -34,8 +32,7 @@ def main():
   label1.pack()
 
   root.mainloop()
-  
- 
+
 
 if __name__=="__main__":
   main()
