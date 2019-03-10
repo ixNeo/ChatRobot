@@ -1,9 +1,11 @@
 # 中文注解
 1. 用python3实现的多功能机器人，可以实现中英互译、电影推荐、个性化机器人陪聊、音乐播放、头像展示等功能
-    1. 翻译功能：调用网易翻译的API
+2. 具体：
+	1. （项目亮点）好友联系人：爬取并清洗个人QQ消息记录或者电影台词，数据库存储，设计智能回复算法。涉及jieba分词，自然语言处理相关内容
     2. 机器人Alice陪聊：调用图灵机器人API
-    3. 电影推荐：爬取豆瓣TOP250数据
-    4. 其余联系人：爬取个人QQ消息记录或者电影台词，随机生成
+    3. 翻译功能：调用网易翻译的API
+    4. 电影推荐：爬取豆瓣TOP250数据
+[详情/迭代过程/开发重难点: 见博客地址](https://ixneo.github.io/2019/03/10/chatbolt/)
 
 
 # ChatRobot
@@ -19,10 +21,11 @@ one chatting robot can broadcasting music and reply automatically
 #### music playing
   1. a short sound will appear once u press the <L_control> or the "发送"
   2. at the bottom of the main window, u can choose to play, pause, stop the background music which is just one song.
-  p.s. when u choose to play background music, the sound noticing won't appear, u have to stop the music, but not pause, the sound will work normally again.
+
+    p.s. when u choose to play background music, the sound noticing won't appear, u have to stop the music, but not pause, the sound will work normally again.
 #### image.
   1. on the right column, there is a picture to decorate the window. 
-  
+
 ## how to use
 1. run main.py to start the chatting window
 2. choose a specific style robot u want to chat with on the left column.
@@ -36,10 +39,6 @@ win10, python3.6.3
 1. tkinter
 2. pygame
 3. PIL
+4. jieba
 
-## work not to do
-  1. more intelligent reply. Because there just time random, which is not really smart. u can improve it by deep learning.
-  2. more songs support. u can add functions like "next songs"
-  3. more images. u can add the button to change the picture.
-  
 
